@@ -10,15 +10,18 @@ package database4object.Controllers;
  * @author jairo
  */
 public class NuevoLibroController extends javax.swing.JFrame {
-
+    private String nombre,autor,editorial;
+    private int yearPublicacion;
     /**
      * Creates new form NuevoLibroController
      */
     public NuevoLibroController() {
         initComponents();
         super.setResizable(false);
+        jLabelErrorFecha.setVisible(false);
+       
     }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,12 +34,14 @@ public class NuevoLibroController extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField5 = new javax.swing.JTextField();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jTextFieldAutor = new javax.swing.JTextField();
+        jTextFieldAñoPublicacion = new javax.swing.JTextField();
+        jComboBoxTematicas = new javax.swing.JComboBox<>();
+        jTextFieldEditorial = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButtonCrearLibro = new javax.swing.JButton();
+        jLabelErrorFecha = new javax.swing.JLabel();
 
         jTextField2.setText("jTextField1");
 
@@ -47,30 +52,30 @@ public class NuevoLibroController extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Biblioteca | Nuevo Libro");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("Nombre");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNombre.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldNombre.setText("Nombre");
+        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFieldNombreActionPerformed(evt);
             }
         });
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setText("Autor");
+        jTextFieldAutor.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldAutor.setText("Autor");
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setText("Año de publicacion");
+        jTextFieldAñoPublicacion.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldAñoPublicacion.setText("Año de publicacion");
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxTematicas.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBoxTematicas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTematicas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxTematicasActionPerformed(evt);
             }
         });
 
-        jTextField5.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField5.setText("Editorial");
+        jTextFieldEditorial.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldEditorial.setText("Editorial");
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +83,17 @@ public class NuevoLibroController extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jButtonCrearLibro.setText("Crear");
+        jButtonCrearLibro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCrearLibroActionPerformed(evt);
+            }
+        });
+
+        jLabelErrorFecha.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelErrorFecha.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelErrorFecha.setText("Error en la fecha");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,14 +103,18 @@ public class NuevoLibroController extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField5))
-                .addContainerGap(141, Short.MAX_VALUE))
+                    .addComponent(jTextFieldNombre)
+                    .addComponent(jTextFieldAutor)
+                    .addComponent(jTextFieldAñoPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTematicas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextFieldEditorial))
+                .addGap(18, 18, 18)
+                .addComponent(jLabelErrorFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(248, Short.MAX_VALUE)
+                .addComponent(jButtonCrearLibro)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -104,17 +124,21 @@ public class NuevoLibroController extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldAñoPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelErrorFecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxTematicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButtonCrearLibro))
                 .addContainerGap())
         );
 
@@ -133,13 +157,13 @@ public class NuevoLibroController extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxTematicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTematicasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxTematicasActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -148,6 +172,45 @@ public class NuevoLibroController extends javax.swing.JFrame {
         menu.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonCrearLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearLibroActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jButtonCrearLibroActionPerformed
+
+    public String almacenarNombre(){
+        return jTextFieldNombre.getText();
+    }
+    
+    public String almacenarAutor(){
+        return jTextFieldAutor.getText();
+    }
+    
+    public int almacenarFechaPublicacion(){
+        if(comprobarFecha() == true && isNumeric()== true){
+            return Integer.valueOf(jTextFieldAñoPublicacion.getText());
+        }else{
+            jLabelErrorFecha.setVisible(true);
+        }
+        return;
+    }
+    
+    public boolean comprobarFecha(){
+        boolean respuesta = false;
+        
+        if((jTextFieldAñoPublicacion.getText().length() == 4)){
+            respuesta= true;
+        }
+        return true;
+    }
+    
+    public boolean isNumeric(){
+	try {
+		Integer.parseInt(jTextFieldAñoPublicacion.getText());
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+}
     /**
      * @param args the command line arguments
      */
@@ -185,13 +248,17 @@ public class NuevoLibroController extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButtonCrearLibro;
+    private javax.swing.JComboBox<String> jComboBoxTematicas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelErrorFecha;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextFieldAutor;
+    private javax.swing.JTextField jTextFieldAñoPublicacion;
+    private javax.swing.JTextField jTextFieldEditorial;
+    private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
+
+
 }
