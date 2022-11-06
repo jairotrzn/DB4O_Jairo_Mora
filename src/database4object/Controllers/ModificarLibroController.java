@@ -5,6 +5,10 @@
  */
 package database4object.Controllers;
 
+import com.db4o.ObjectSet;
+import database4object.Classes.Tematica;
+import database4object.Services.TematicaServices;
+
 /**
  *
  * @author jairo
@@ -16,7 +20,9 @@ public class ModificarLibroController extends javax.swing.JFrame {
      */
     public ModificarLibroController() {
         initComponents();
+        jLabelErrorAño.setVisible(false);
         super.setResizable(false);
+        llenarJcombox();
     }
 
     /**
@@ -30,12 +36,14 @@ public class ModificarLibroController extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jTextField12 = new javax.swing.JTextField();
+        jTextFieldNombre = new javax.swing.JTextField();
+        jTextFieldAutor = new javax.swing.JTextField();
+        jTextFieldFechaPublicacion = new javax.swing.JTextField();
+        jComboBoxListaTematicas = new javax.swing.JComboBox<>();
+        jTextFieldEditorial = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
+        jLabelErrorAño = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,30 +52,50 @@ public class ModificarLibroController extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Biblioteca | Modificar Libro");
 
-        jTextField9.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField9.setText("Nombre");
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNombre.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldNombre.setText("Nombre");
+        jTextFieldNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldNombreMouseClicked(evt);
+            }
+        });
+        jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                jTextFieldNombreActionPerformed(evt);
             }
         });
 
-        jTextField10.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField10.setText("Autor");
-
-        jTextField11.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField11.setText("Año de publicacion");
-
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+        jTextFieldAutor.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldAutor.setText("Autor");
+        jTextFieldAutor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldAutorMouseClicked(evt);
             }
         });
 
-        jTextField12.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField12.setText("Editorial");
+        jTextFieldFechaPublicacion.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldFechaPublicacion.setText("Año de publicacion");
+        jTextFieldFechaPublicacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldFechaPublicacionMouseClicked(evt);
+            }
+        });
+
+        jComboBoxListaTematicas.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBoxListaTematicas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxListaTematicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxListaTematicasActionPerformed(evt);
+            }
+        });
+
+        jTextFieldEditorial.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldEditorial.setText("Editorial");
+        jTextFieldEditorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldEditorialMouseClicked(evt);
+            }
+        });
 
         jButton3.setText("Volver");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -76,23 +104,39 @@ public class ModificarLibroController extends javax.swing.JFrame {
             }
         });
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
+        jLabelErrorAño.setBackground(new java.awt.Color(204, 204, 204));
+        jLabelErrorAño.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelErrorAño.setText("Error");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField9)
-                    .addComponent(jTextField10)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField12))
-                .addContainerGap(141, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3)
+                            .addComponent(jTextFieldNombre)
+                            .addComponent(jTextFieldAutor)
+                            .addComponent(jTextFieldFechaPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                            .addComponent(jComboBoxListaTematicas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldEditorial))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelErrorAño, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 221, Short.MAX_VALUE)
+                        .addComponent(jButtonModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -101,17 +145,21 @@ public class ModificarLibroController extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldFechaPublicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelErrorAño))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxListaTematicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextFieldEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButtonModificar))
                 .addContainerGap())
         );
 
@@ -130,13 +178,13 @@ public class ModificarLibroController extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void jComboBoxListaTematicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxListaTematicasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_jComboBoxListaTematicasActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -144,7 +192,79 @@ public class ModificarLibroController extends javax.swing.JFrame {
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton3ActionPerformed
+    public void llenarJcombox() {
+        jComboBoxListaTematicas.removeAllItems();
+        TematicaServices tematicaServices = new TematicaServices();
+        ObjectSet<Tematica> tematicas = tematicaServices.almacenarTematicas();
+        if (tematicas.isEmpty()) {
+            jComboBoxListaTematicas.addItem("No existen tematicas encontradas");
+        } else {
+            while (tematicas.hasNext()) {
+                Tematica tematicaEncontrada = (Tematica) tematicas.next();
+                jComboBoxListaTematicas.addItem(tematicaEncontrada.getNombre());
+            }
+        }
+    }
+    private void jTextFieldNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreMouseClicked
+        // TODO add your handling code here:
+        jTextFieldNombre.setText("");
+    }//GEN-LAST:event_jTextFieldNombreMouseClicked
 
+    private void jTextFieldAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldAutorMouseClicked
+        // TODO add your handling code here:
+        jTextFieldAutor.setText("");
+    }//GEN-LAST:event_jTextFieldAutorMouseClicked
+
+    private void jTextFieldFechaPublicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldFechaPublicacionMouseClicked
+        // TODO add your handling code here:
+        jTextFieldFechaPublicacion.setText("");
+    }//GEN-LAST:event_jTextFieldFechaPublicacionMouseClicked
+
+    private void jTextFieldEditorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldEditorialMouseClicked
+        // TODO add your handling code here:
+        jTextFieldEditorial.setText("");
+    }//GEN-LAST:event_jTextFieldEditorialMouseClicked
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+    public String almacnarEditorial(){
+        return jTextFieldEditorial.getText();
+    }
+    public String almacenarNombre(){
+        return jTextFieldNombre.getText();
+    }
+    
+    public String almacenarAutor(){
+        return jTextFieldAutor.getText();
+    }
+        public int almacenarFechaPublicacion(){
+        int fecha = 0000;
+        if(comprobarFecha() == true && isNumeric()== true){
+            fecha = Integer.valueOf(jTextFieldFechaPublicacion.getText());
+        }else{
+            jTextFieldFechaPublicacion.setVisible(true);
+        }
+        return fecha;
+    }
+    
+    public boolean comprobarFecha(){
+        boolean respuesta = false;
+        
+        if((jTextFieldFechaPublicacion.getText().length() == 4)){
+            respuesta= true;
+        }
+        return true;
+    }
+    
+    public boolean isNumeric(){
+	try {
+		Integer.parseInt(jTextFieldFechaPublicacion.getText());
+		return true;
+	} catch (NumberFormatException nfe){
+		return false;
+	}
+}
     /**
      * @param args the command line arguments
      */
@@ -182,12 +302,14 @@ public class ModificarLibroController extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton jButtonModificar;
+    private javax.swing.JComboBox<String> jComboBoxListaTematicas;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelErrorAño;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextFieldAutor;
+    private javax.swing.JTextField jTextFieldEditorial;
+    private javax.swing.JTextField jTextFieldFechaPublicacion;
+    private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 }
