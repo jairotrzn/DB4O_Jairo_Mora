@@ -5,18 +5,26 @@
  */
 package database4object.Controllers;
 
+import database4object.Services.TematicaServices;
+
 /**
  *
  * @author jairo
  */
 public class MostrarTematicasController extends javax.swing.JFrame {
-
+    private TematicaServices tematicaServices;
     /**
      * Creates new form MostrarTematicasController
      */
+ 
     public MostrarTematicasController() {
         initComponents();
-          super.setResizable(false);
+        super.setResizable(false);
+        tematicaServices = new TematicaServices();
+        jTextAreaMostrarDatos.setEditable(false);
+        jTextAreaMostrarDatos.setText(tematicaServices.obtenerDatosTematica());
+          
+       
     }
 
     /**
@@ -32,7 +40,7 @@ public class MostrarTematicasController extends javax.swing.JFrame {
         jButtonVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaMostrarDatos = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,10 +56,10 @@ public class MostrarTematicasController extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Biblioteca | Mostrar temáticas");
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextAreaMostrarDatos.setBackground(new java.awt.Color(255, 255, 255));
+        jTextAreaMostrarDatos.setColumns(20);
+        jTextAreaMostrarDatos.setRows(5);
+        jScrollPane1.setViewportView(jTextAreaMostrarDatos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,6 +153,6 @@ public class MostrarTematicasController extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextAreaMostrarDatos;
     // End of variables declaration//GEN-END:variables
 }

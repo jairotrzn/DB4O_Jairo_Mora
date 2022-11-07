@@ -16,29 +16,36 @@ import database4object.Classes.Tematica;
  * @author jairo
  */
 public class LibrosRepository {
-    
-        private final String DTBLibros  = "DTBLibros.db4o";
-        
-    public LibrosRepository(Libro libro) {
-        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),DTBLibros);
+
+    private final String DTBLibros = "DTBLibros.db4o";
+
+    public void guardarLibro(Libro libro) {
+        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DTBLibros);
         dataBase.store(libro);
         dataBase.close();
     }
-    
-        public void leerLibros(){
-     ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DTBLibros);
-     Libro libro = new Libro();
-      ObjectSet<Libro> librosEncontradas = dataBase.queryByExample(libro);
-      
-      if (librosEncontradas.isEmpty()){
-          System.err.println("No existen tematicas encontradas");
-      }else{
-          while(librosEncontradas.hasNext()){
-              Libro librosEncontrados = (Libro)librosEncontradas.next();
-              System.out.println(librosEncontrados.toString());
-          }
-      }
-      dataBase.close();
+
+    public String leerLibros() {
+        String linea = "";
+        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DTBLibros);
+        Libro libro = new Libro();
+        ObjectSet<Libro> librosEncontradas = dataBase.queryByExample(libro);
+
+        if (librosEncontradas.isEmpty()) {
+            linea = "No existen libros encontrados";
+        } else {
+            while (librosEncontradas.hasNext()) {
+                Libro librosEncontrados = (Libro) librosEncontradas.next();
+                linea = linea + "\n" + librosEncontradas.toString();
+            }
+        }
+        dataBase.close();
+        return linea;
     }
-    
+
+    public void modificarLibro() {
+        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DTBLibros);
+
+    }
+
 }

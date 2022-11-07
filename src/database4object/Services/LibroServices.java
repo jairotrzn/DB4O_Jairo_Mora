@@ -5,6 +5,7 @@
  */
 package database4object.Services;
 
+import database4object.Repository.LibrosRepository;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,9 +14,10 @@ import java.util.Date;
  * @author jairo
  */
 public class LibroServices {
+       private LibrosRepository linroRepository;
        
-    public LibroServices(String nombre) {
-        
+    public LibroServices() {
+        this.linroRepository = new LibrosRepository();
     }
     
     
@@ -29,5 +31,9 @@ public class LibroServices {
     public String obtenerId(String nombre){ 
         String id;
         return nombre + obtenerFechaRegistro().replace("/", "").replace(" ", "").replace("-", "");
+    }
+    
+    public String mostrarLibros(){
+        return linroRepository.leerLibros();
     }
 }

@@ -5,20 +5,27 @@
  */
 package database4object.Controllers;
 
+import com.db4o.ObjectSet;
+import database4object.Classes.Libro;
+import database4object.Classes.Tematica;
+import database4object.Services.TematicaServices;
+
 /**
  *
  * @author jairo
  */
 public class NuevoLibroController extends javax.swing.JFrame {
-    private String nombre,autor,editorial;
-    private int yearPublicacion;
+    private static String nombre,autor,editorial;
+    private static int yearPublicacion;
     /**
      * Creates new form NuevoLibroController
      */
     public NuevoLibroController() {
+       
         initComponents();
         super.setResizable(false);
         jLabelErrorFecha.setVisible(false);
+        llenarJcombox();
        
     }
  
@@ -167,16 +174,39 @@ public class NuevoLibroController extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-               super.dispose();
+          super.dispose();
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButtonCrearLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearLibroActionPerformed
         // TODO add your handling code here:
-
+        crearLirno();
+       
     }//GEN-LAST:event_jButtonCrearLibroActionPerformed
-
+    public void llenarJcombox(){
+        jComboBoxTematicas.removeAllItems();
+        TematicaServices tematicaServices = new TematicaServices();
+        ObjectSet<Tematica> tematicas = tematicaServices.almacenarTematicas();
+         if (tematicas.isEmpty()) {
+            jComboBoxTematicas.addItem("No existen tematicas encontradas"); 
+        } else {
+            while (tematicas.hasNext()) {
+                Tematica tematicaEncontrada = (Tematica) tematicas.next();
+                jComboBoxTematicas.addItem(tematicaEncontrada.getNombre());
+            }
+        }
+    }
+    public void crearLirno(){
+        nombre = almacenarNombre();
+        autor = almacenarAutor();
+        yearPublicacion = almacenarFechaPublicacion();
+        editorial = almacenarEditorial();
+        Libro libro = new Libro(nombre, autor, autor, editorial);
+    }
+    public String almacenarEditorial(){
+        return jTextFieldEditorial.getText();
+    }
     public String almacenarNombre(){
         return jTextFieldNombre.getText();
     }
@@ -186,12 +216,13 @@ public class NuevoLibroController extends javax.swing.JFrame {
     }
     
     public int almacenarFechaPublicacion(){
+        int fecha = 0000;
         if(comprobarFecha() == true && isNumeric()== true){
-            return Integer.valueOf(jTextFieldAñoPublicacion.getText());
+            fecha = Integer.valueOf(jTextFieldAñoPublicacion.getText());
         }else{
             jLabelErrorFecha.setVisible(true);
         }
-        return;
+        return fecha;
     }
     
     public boolean comprobarFecha(){

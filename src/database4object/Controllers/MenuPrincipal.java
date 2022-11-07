@@ -181,8 +181,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jButtonModificarTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarTematicaActionPerformed
         // TODO add your handling code here:
-        MostrarTematicasController mostrarTematica = new MostrarTematicasController();
-        mostrarTematica.setVisible(true);
+        ModificarTematica modificarTematica = new ModificarTematica();
+        modificarTematica.setVisible(true);
          super.dispose();
     }//GEN-LAST:event_jButtonModificarTematicaActionPerformed
 
