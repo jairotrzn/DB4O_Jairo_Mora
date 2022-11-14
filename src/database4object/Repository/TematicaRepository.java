@@ -9,6 +9,7 @@ import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import database4object.Classes.Tematica;
+import java.util.ArrayList;
 
 /**
  *
@@ -43,21 +44,37 @@ public class TematicaRepository {
         return linea;
     }
 
-    public ObjectSet<Tematica> obtenerLista() {
+    public ArrayList<Tematica> obtenerLista() {
+        ArrayList<Tematica> arraytematicas = new ArrayList<>();
+        ObjectSet<Tematica> listaTematicas;
         ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), BDTematica);
         Tematica tematica = new Tematica();
-        return dataBase.queryByExample(tematica);
+        listaTematicas = dataBase.queryByExample(tematica);
+            while (listaTematicas.hasNext()) {
+                Tematica tematicaEncontrada = (Tematica) listaTematicas.next();
+                arraytematicas.add(tematicaEncontrada);
+            }
+        
+        dataBase.close();
+        
+        return  arraytematicas;
     }
     
-    public void modificarTematica(String nombre){
+    public void modificarTematica(String nombreAntiguo,String nuevoNombre){
         ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),BDTematica);
-        Tematica tematica = new Tematica(nombre);
+        Tematica tematica = new Tematica(nombreAntiguo);
         ObjectSet<Tematica> tematicaBaseDatos = dataBase.queryByExample(tematica);
-        
+        System.out.println(tematicaBaseDatos.size());
         if (tematicaBaseDatos.isEmpty()){
             System.err.println(" No hay libros encontrados ");
         }else{
             Tematica tematicaEnBD = tematicaBaseDatos.get(0);
+            Tematica copiaTematica = new Tematica(tematicaEnBD.getId(), nuevoNombre, tematicaEnBD.getFechaAlta());
+            
+            dataBase.store(copiaTematica);
+            dataBase.delete(tematicaEnBD);
         }   
+        dataBase.close();
     }
+   
 }

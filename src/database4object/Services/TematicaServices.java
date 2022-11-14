@@ -4,6 +4,7 @@ import com.db4o.ObjectSet;
 import database4object.Classes.Tematica;
 import database4object.Repository.TematicaRepository;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /*
@@ -23,7 +24,9 @@ public class TematicaServices {
     public TematicaServices() {
         this.tematicaRepository = new TematicaRepository();
     }
-    
+    public void modificarTematica(String nombreAntiguo,String nombreNuevo){
+        tematicaRepository.modificarTematica(nombreAntiguo, nombreNuevo);
+    }
     public void crearTematica(String nombre){
         Tematica tematica = new Tematica(nombre);
         tematicaRepository.guardarTematica(tematica);
@@ -41,7 +44,8 @@ public class TematicaServices {
         return format.format(new Date());
     }
    
-    public  ObjectSet<Tematica> almacenarTematicas(){
+    public  ArrayList<Tematica> almacenarTematicas(){
+      
         return tematicaRepository.obtenerLista();
     } 
 }

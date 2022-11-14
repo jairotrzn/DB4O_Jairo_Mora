@@ -20,24 +20,41 @@ public class Libro {
     private String autor;
     private String fechaPublicacion;
     private String editorial;
-    private List <Integer> idTematicas = new ActivatableArrayList<>();
+    private List <String> nombreTematica = new ActivatableArrayList<>();
     
     public Libro (){
     
     }
-    public Libro(String nombre, String autor, String fechaPublicacion, String editorial){
+    
+    public Libro(String nombreLibro){
+        this.nombre = nombreLibro;
+    }
+    
+    public Libro(String id,String nombre, String autor, String fechaPublicacion, String editorial,String tematica){
+        this.id = id;
+        this.nombre = nombre;
+        this.autor = autor;
+        this.fechaPublicacion = fechaPublicacion;
+        this.editorial = editorial;
+        this.nombreTematica.add(tematica);
+    }
+    public Libro(String nombre, String autor, String fechaPublicacion, String editorial,String tematica){
         this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.autor = autor;
         this.fechaPublicacion = fechaPublicacion;
         this.editorial = editorial;
+        this.nombreTematica.add(tematica);
     }
 
     @Override
     public String toString() {
         return  (nombre + " - " + autor + " - " + fechaPublicacion + " - " );
     }
-
+    
+    public void addTematica(String tematica){
+        this.nombreTematica.add(tematica);
+    }
     public String getId() {
         return id;
     }
@@ -78,12 +95,12 @@ public class Libro {
         this.editorial = editorial;
     }
 
-    public List<Integer> getIdTematicas() {
-        return idTematicas;
+    public List<String> getIdTematicas() {
+        return nombreTematica;
     }
 
-    public void setIdTematicas(List<Integer> idTematicas) {
-        this.idTematicas = idTematicas;
+    public void setIdTematicas(List<String> nombreTematica) {
+        this.nombreTematica = nombreTematica;
     }
 
 }

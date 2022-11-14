@@ -5,18 +5,24 @@
  */
 package database4object.Controllers;
 
+import database4object.Services.TematicaServices;
+import javax.swing.JLabel;
+
 /**
  *
  * @author jairo
  */
 public class ModificarTematica extends javax.swing.JFrame {
-
+    TematicaServices tematicaServices;
     /**
      * Creates new form ModificarTematica
      */
     public ModificarTematica() {
         initComponents();
           super.setResizable(false);
+          tematicaServices = new TematicaServices();
+          jLabelError.setVisible(false);
+          
     }
 
     /**
@@ -30,11 +36,11 @@ public class ModificarTematica extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        jTextFielNombre = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButtonCrearTematica = new javax.swing.JButton();
+        jTextFieldNuevoNombre = new javax.swing.JTextField();
+        jLabelError = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,24 +49,13 @@ public class ModificarTematica extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Biblioteca | Modificación temática");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("Nombre");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextFielNombre.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFielNombre.setText("Nombre tematica");
+        jTextFielNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextFielNombreActionPerformed(evt);
             }
         });
-
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setText("Fecha de alta");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setText("Fecha de modificacion");
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +64,24 @@ public class ModificarTematica extends javax.swing.JFrame {
             }
         });
 
-        jButtonCrearTematica.setText("Crear");
+        jButtonCrearTematica.setText("Modificar");
+        jButtonCrearTematica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCrearTematicaActionPerformed(evt);
+            }
+        });
+
+        jTextFieldNuevoNombre.setBackground(new java.awt.Color(255, 255, 255));
+        jTextFieldNuevoNombre.setText("Nuevo nombre");
+        jTextFieldNuevoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNuevoNombreActionPerformed(evt);
+            }
+        });
+
+        jLabelError.setBackground(new java.awt.Color(204, 204, 204));
+        jLabelError.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelError.setText("El nombre antiguo coincide con el nuevo nombre");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,17 +89,20 @@ public class ModificarTematica extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
-                .addContainerGap(141, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonCrearTematica)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonCrearTematica)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextFieldNuevoNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextFielNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                            .addComponent(jLabelError))
+                        .addGap(0, 114, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -95,13 +110,13 @@ public class ModificarTematica extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jTextFielNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNuevoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButtonCrearTematica))
@@ -123,13 +138,9 @@ public class ModificarTematica extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextFielNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFielNombreActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -138,6 +149,43 @@ public class ModificarTematica extends javax.swing.JFrame {
         menu.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTextFieldNuevoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNuevoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNuevoNombreActionPerformed
+
+    private void jButtonCrearTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearTematicaActionPerformed
+        // TODO add your handling code here:
+        TematicaServices tematicaservices = new TematicaServices();
+        String nombreAntiguo = jTextFielNombre.getText();
+        String nuevoNombre = jTextFieldNuevoNombre.getText();
+        
+        if (nombreAntiguo.equals(nuevoNombre)){
+            jLabelError.setVisible(true);
+        }else{
+            tematicaservices.modificarTematica(nombreAntiguo, nuevoNombre);
+            jLabelError.setVisible(false);
+            System.out.println("Nombre cambiado");
+        }
+      
+        
+        
+    }//GEN-LAST:event_jButtonCrearTematicaActionPerformed
+    public static void realizaModificacion(boolean sonIguales, JLabel labelError,String nombreAntiguo,String nuevoNombre){
+        
+        if (sonIguales = false){
+             
+            
+        }else{
+            labelError.setVisible(true);
+        }
+    }
+    public static boolean comprobarTematica(String nombreAntigua, String nuevoNombre){
+        boolean respuesta = false;
+        if (nombreAntigua.equals(nuevoNombre)){
+           respuesta = true;
+        }
+        return respuesta;
+    }
     /**
      * @param args the command line arguments
      */
@@ -177,9 +225,9 @@ public class ModificarTematica extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCrearTematica;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelError;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextFielNombre;
+    private javax.swing.JTextField jTextFieldNuevoNombre;
     // End of variables declaration//GEN-END:variables
 }

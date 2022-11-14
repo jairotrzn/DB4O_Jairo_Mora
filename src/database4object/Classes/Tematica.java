@@ -18,14 +18,19 @@ public class Tematica {
     private String nombre;
     private String fechaAlta;
     private String fechaModificacion;
-  
-    public  Tematica(){
+
     
+    public Tematica(){
+    
+    }
+    public Tematica(String id, String nombre,String fechaAlta){
+        this.id = id;
+        this.nombre = nombre;
+        this.fechaAlta = fechaAlta;
+        fechaModificacion = obtenerFecha();
     }
     public Tematica(String nombre) {
         this.nombre = nombre;
-        this.id = UUID.randomUUID().toString();
-        this.fechaAlta = obtenerFecha();
     }
 
     public String getId() {
@@ -66,7 +71,7 @@ public class Tematica {
     @Override
     public String toString() {
         
-        return (nombre + " - " + fechaAlta) ;
+        return (nombre + " - " + fechaAlta + " Fecha ultima modificacion " + fechaModificacion) ;
     }
 
    

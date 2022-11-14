@@ -9,13 +9,14 @@ import com.db4o.ObjectSet;
 import database4object.Classes.Libro;
 import database4object.Classes.Tematica;
 import database4object.Services.TematicaServices;
+import java.util.ArrayList;
 
 /**
  *
  * @author jairo
  */
 public class NuevoLibroController extends javax.swing.JFrame {
-    private static String nombre,autor,editorial;
+    private static String nombre,autor,editorial,tematica;
     private static int yearPublicacion;
     /**
      * Creates new form NuevoLibroController
@@ -185,16 +186,17 @@ public class NuevoLibroController extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jButtonCrearLibroActionPerformed
     public void llenarJcombox(){
+      
         jComboBoxTematicas.removeAllItems();
         TematicaServices tematicaServices = new TematicaServices();
-        ObjectSet<Tematica> tematicas = tematicaServices.almacenarTematicas();
+      
+        ArrayList<Tematica> tematicas = tematicaServices.almacenarTematicas();
          if (tematicas.isEmpty()) {
             jComboBoxTematicas.addItem("No existen tematicas encontradas"); 
         } else {
-            while (tematicas.hasNext()) {
-                Tematica tematicaEncontrada = (Tematica) tematicas.next();
-                jComboBoxTematicas.addItem(tematicaEncontrada.getNombre());
-            }
+             for(Tematica tematicaAlmacenada : tematicas){
+                   jComboBoxTematicas.addItem(tematicaAlmacenada.getNombre());
+             }
         }
     }
     public void crearLirno(){
@@ -202,7 +204,12 @@ public class NuevoLibroController extends javax.swing.JFrame {
         autor = almacenarAutor();
         yearPublicacion = almacenarFechaPublicacion();
         editorial = almacenarEditorial();
-        Libro libro = new Libro(nombre, autor, autor, editorial);
+        tematica = almacenarTematica();
+        Libro libro = new Libro(nombre, autor, autor, editorial,tematica);
+    }
+    
+    public String almacenarTematica(){
+        return (String) jComboBoxTematicas.getSelectedItem();
     }
     public String almacenarEditorial(){
         return jTextFieldEditorial.getText();

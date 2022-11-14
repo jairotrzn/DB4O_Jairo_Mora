@@ -8,6 +8,7 @@ package database4object.Controllers;
 import com.db4o.ObjectSet;
 import database4object.Classes.Tematica;
 import database4object.Services.TematicaServices;
+import java.util.ArrayList;
 
 /**
  *
@@ -44,6 +45,7 @@ public class ModificarLibroController extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jLabelErrorAño = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,6 +85,11 @@ public class ModificarLibroController extends javax.swing.JFrame {
 
         jComboBoxListaTematicas.setBackground(new java.awt.Color(255, 255, 255));
         jComboBoxListaTematicas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxListaTematicas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxListaTematicasMouseClicked(evt);
+            }
+        });
         jComboBoxListaTematicas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxListaTematicasActionPerformed(evt);
@@ -115,6 +122,9 @@ public class ModificarLibroController extends javax.swing.JFrame {
         jLabelErrorAño.setForeground(new java.awt.Color(255, 0, 0));
         jLabelErrorAño.setText("Error");
 
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("Libro no encontrado");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -130,10 +140,14 @@ public class ModificarLibroController extends javax.swing.JFrame {
                             .addComponent(jTextFieldFechaPublicacion, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                             .addComponent(jComboBoxListaTematicas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextFieldEditorial))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelErrorAño, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelErrorAño, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 221, Short.MAX_VALUE)
+                        .addGap(74, 221, Short.MAX_VALUE)
                         .addComponent(jButtonModificar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)))
@@ -145,7 +159,9 @@ public class ModificarLibroController extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -156,7 +172,7 @@ public class ModificarLibroController extends javax.swing.JFrame {
                 .addComponent(jComboBoxListaTematicas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButtonModificar))
@@ -192,17 +208,18 @@ public class ModificarLibroController extends javax.swing.JFrame {
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jButton3ActionPerformed
-    public void llenarJcombox() {
+     public void llenarJcombox(){
+        System.out.println("Voy a llenar el combox");
         jComboBoxListaTematicas.removeAllItems();
         TematicaServices tematicaServices = new TematicaServices();
-        ObjectSet<Tematica> tematicas = tematicaServices.almacenarTematicas();
-        if (tematicas.isEmpty()) {
-            jComboBoxListaTematicas.addItem("No existen tematicas encontradas");
+        System.out.println("me he traido la lista al controller");
+        ArrayList<Tematica> tematicas = tematicaServices.almacenarTematicas();
+         if (tematicas.isEmpty()) {
+            jComboBoxListaTematicas.addItem("No existen tematicas encontradas"); 
         } else {
-            while (tematicas.hasNext()) {
-                Tematica tematicaEncontrada = (Tematica) tematicas.next();
-                jComboBoxListaTematicas.addItem(tematicaEncontrada.getNombre());
-            }
+             for(Tematica tematicaAlmacenada : tematicas){
+                   jComboBoxListaTematicas.addItem(tematicaAlmacenada.getNombre());
+             }
         }
     }
     private void jTextFieldNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreMouseClicked
@@ -228,6 +245,14 @@ public class ModificarLibroController extends javax.swing.JFrame {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jComboBoxListaTematicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxListaTematicasMouseClicked
+        // TODO add your handling code here:
+        
+        String lista = "";
+        lista = lista + jComboBoxListaTematicas.getSelectedItem();
+        System.out.println(lista);
+    }//GEN-LAST:event_jComboBoxListaTematicasMouseClicked
     public String almacnarEditorial(){
         return jTextFieldEditorial.getText();
     }
@@ -304,6 +329,7 @@ public class ModificarLibroController extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JComboBox<String> jComboBoxListaTematicas;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelErrorAño;
     private javax.swing.JPanel jPanel3;
