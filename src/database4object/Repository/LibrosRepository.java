@@ -43,8 +43,20 @@ public class LibrosRepository {
         return linea;
     }
 
-    public void modificarLibro() {
+    public void modificarLibro(String nombreAntiguo,String tematica) {
         ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DTBLibros);
+        Libro libro = new Libro(nombreAntiguo);
+        ObjectSet<Libro> librosEncontrados = dataBase.queryByExample(libro);
+        
+        if(librosEncontrados.isEmpty()){
+            System.out.println("No existe libros encontrados");
+        }else{
+            Libro libroEnBD = librosEncontrados.get(0);
+            Libro copiaLibro = new Libro(libroEnBD.getId(),libroEnBD.getNombre(), libroEnBD.getAutor(), libroEnBD.getFechaPublicacion(), libroEnBD.getEditorial(), tematica);
+            
+            dataBase.store(copiaLibro);
+            dataBase.delete(libroEnBD);
+        }
 
     }
 
