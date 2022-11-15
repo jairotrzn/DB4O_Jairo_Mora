@@ -50,31 +50,42 @@ public class TematicaRepository {
         ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), BDTematica);
         Tematica tematica = new Tematica();
         listaTematicas = dataBase.queryByExample(tematica);
-            while (listaTematicas.hasNext()) {
-                Tematica tematicaEncontrada = (Tematica) listaTematicas.next();
-                arraytematicas.add(tematicaEncontrada);
-            }
-        
+        while (listaTematicas.hasNext()) {
+            Tematica tematicaEncontrada = (Tematica) listaTematicas.next();
+            arraytematicas.add(tematicaEncontrada);
+        }
+
         dataBase.close();
-        
-        return  arraytematicas;
+
+        return arraytematicas;
     }
-    
-    public void modificarTematica(String nombreAntiguo,String nuevoNombre){
-        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),BDTematica);
+
+    public void modificarTematica(String nombreAntiguo, String nuevoNombre) {
+        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), BDTematica);
         Tematica tematica = new Tematica(nombreAntiguo);
         ObjectSet<Tematica> tematicaBaseDatos = dataBase.queryByExample(tematica);
         System.out.println(tematicaBaseDatos.size());
-        if (tematicaBaseDatos.isEmpty()){
-            System.err.println(" No hay libros encontrados ");
-        }else{
+        if (tematicaBaseDatos.isEmpty()) {
             Tematica tematicaEnBD = tematicaBaseDatos.get(0);
             Tematica copiaTematica = new Tematica(tematicaEnBD.getId(), nuevoNombre, tematicaEnBD.getFechaAlta());
-            
+
             dataBase.store(copiaTematica);
             dataBase.delete(tematicaEnBD);
-        }   
+        }
         dataBase.close();
     }
-   
+
+    public boolean exixteTematica(String nombre) {
+        boolean existe = false;
+        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), BDTematica);
+        Tematica tematica = new Tematica(nombre);
+        ObjectSet<Tematica> tematicasEncontradas = dataBase.queryByExample(tematica);
+
+        if (!tematicasEncontradas.isEmpty()) {
+            existe = true;
+        }
+        dataBase.close();
+        return existe;
+    }
+
 }

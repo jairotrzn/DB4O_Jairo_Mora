@@ -31,13 +31,14 @@ public class LibrosRepository {
         Libro libro = new Libro();
         ObjectSet<Libro> librosEncontradas = dataBase.queryByExample(libro);
 
-        if (librosEncontradas.isEmpty()) {
-            linea = "No existen libros encontrados";
-        } else {
-            while (librosEncontradas.hasNext()) {
+        if (!librosEncontradas.isEmpty()) {
+          
+             while (librosEncontradas.hasNext()) {
                 Libro librosEncontrados = (Libro) librosEncontradas.next();
                 linea = linea + "\n" + librosEncontradas.toString();
-            }
+        } 
+        }else{
+              linea = "No existen libros encontrados";
         }
         dataBase.close();
         return linea;
@@ -48,9 +49,7 @@ public class LibrosRepository {
         Libro libro = new Libro(nombreAntiguo);
         ObjectSet<Libro> librosEncontrados = dataBase.queryByExample(libro);
         
-        if(librosEncontrados.isEmpty()){
-            System.out.println("No existe libros encontrados");
-        }else{
+        if(!librosEncontrados.isEmpty()){
             Libro libroEnBD = librosEncontrados.get(0);
             Libro copiaLibro = new Libro(libroEnBD.getId(),libroEnBD.getNombre(), libroEnBD.getAutor(), libroEnBD.getFechaPublicacion(), libroEnBD.getEditorial(), tematica);
             
@@ -58,6 +57,20 @@ public class LibrosRepository {
             dataBase.delete(libroEnBD);
         }
 
+    }
+    
+    public boolean existeLibroEnBD(String nombreLibro){
+        boolean existe = false;
+        
+        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),DTBLibros);
+        Libro libro = new Libro(nombreLibro);
+        ObjectSet<Libro> librosEnconbtrados = dataBase.queryByExample(libro);
+        
+        if (!librosEnconbtrados.isEmpty()){
+           existe = true;
+        }
+        dataBase.close();
+         return existe;
     }
 
 }

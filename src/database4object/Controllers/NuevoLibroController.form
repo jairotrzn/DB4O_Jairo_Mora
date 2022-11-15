@@ -52,23 +52,35 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldNombre" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextFieldAutor" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextFieldAñoPublicacion" alignment="0" pref="253" max="32767" attributes="0"/>
-                      <Component id="jComboBoxTematicas" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextFieldEditorial" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="242" max="32767" attributes="0"/>
+                          <Component id="jButtonCrearLibro" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTextFieldNombre" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTextFieldAutor" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTextFieldAñoPublicacion" alignment="0" pref="253" max="32767" attributes="0"/>
+                                      <Component id="jComboBoxTematicas" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jTextFieldEditorial" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabelErrorFecha" min="-2" pref="106" max="-2" attributes="0"/>
+                                      <Component id="jLabelErrorNombre" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Component id="jLabelErrorCamposVacios" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabelErrorFecha" min="-2" pref="106" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="248" max="32767" attributes="0"/>
-                  <Component id="jButtonCrearLibro" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -79,7 +91,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jTextFieldNombre" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jTextFieldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelErrorNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jTextFieldAutor" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -91,7 +106,9 @@
                   <Component id="jComboBoxTematicas" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jTextFieldEditorial" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="52" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jLabelErrorCamposVacios" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCrearLibro" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -118,6 +135,7 @@
             <Property name="text" type="java.lang.String" value="Nombre"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldNombreMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNombreActionPerformed"/>
           </Events>
         </Component>
@@ -128,6 +146,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Autor"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldAutorMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldA&#xf1;oPublicacion">
           <Properties>
@@ -136,6 +157,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="A&#xf1;o de publicacion"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldA&#xf1;oPublicacionMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxTematicas">
           <Properties>
@@ -165,6 +189,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Editorial"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldEditorialMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
@@ -191,6 +218,25 @@
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Error en la fecha"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelErrorNombre">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Libro ya registrado"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelErrorCamposVacios">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Es necesario todos los campos para crear un libro"/>
           </Properties>
         </Component>
       </SubComponents>

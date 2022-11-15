@@ -24,6 +24,10 @@ public class TematicaServices {
     public TematicaServices() {
         this.tematicaRepository = new TematicaRepository();
     }
+    
+    public boolean existeTematica(String nombre){
+        return tematicaRepository.exixteTematica(nombre);
+    }
     public void modificarTematica(String nombreAntiguo,String nombreNuevo){
         tematicaRepository.modificarTematica(nombreAntiguo, nombreNuevo);
     }

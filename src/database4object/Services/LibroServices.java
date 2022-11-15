@@ -5,6 +5,7 @@
  */
 package database4object.Services;
 
+import database4object.Classes.Libro;
 import database4object.Repository.LibrosRepository;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,13 +15,15 @@ import java.util.Date;
  * @author jairo
  */
 public class LibroServices {
-       private LibrosRepository linroRepository;
+       private LibrosRepository libroRepository;
        
     public LibroServices() {
-        this.linroRepository = new LibrosRepository();
+        this.libroRepository = new LibrosRepository();
     }
     
-    
+    public boolean exixteLibro(String nombre){
+        return libroRepository.existeLibroEnBD(nombre);
+    }
         
     public String obtenerFechaRegistro(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh-mm-ss");
@@ -34,6 +37,11 @@ public class LibroServices {
     }
     
     public String mostrarLibros(){
-        return linroRepository.leerLibros();
+        return libroRepository.leerLibros();
+    }
+
+    public void crearLibro(String nombre,String autor,String fechaPublicacion,String editorial,String tematica) {
+      Libro libro = new Libro(nombre, autor, fechaPublicacion, editorial, tematica);
+      libroRepository.guardarLibro(libro);
     }
 }
