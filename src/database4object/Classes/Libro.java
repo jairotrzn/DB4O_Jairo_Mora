@@ -30,28 +30,31 @@ public class Libro {
         this.nombre = nombreLibro;
     }
     
-    public Libro(String id,String nombre, String autor, String fechaPublicacion, String editorial,String tematica){
+    public Libro(String id,String nombre, String autor, String fechaPublicacion,List <String> nombreTematica,String editorial){
         this.id = id;
         this.nombre = nombre;
         this.autor = autor;
         this.fechaPublicacion = fechaPublicacion;
         this.editorial = editorial;
-        this.nombreTematica.add(tematica);
+        this.nombreTematica = nombreTematica;
     }
-    public Libro(String nombre, String autor, String fechaPublicacion, String editorial,String tematica){
+    public Libro(String nombre, String autor, String fechaPublicacion, String editorial,List <String> nombreTematica){
         this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.autor = autor;
         this.fechaPublicacion = fechaPublicacion;
         this.editorial = editorial;
-        this.nombreTematica.add(tematica);
+        this.nombreTematica = nombreTematica;
     }
 
     @Override
     public String toString() {
-        return  (nombre + " - " + autor + " - " + fechaPublicacion + " - " );
+        return (nombre + " - " + autor + " - " + fechaPublicacion + " - " + nombreTematica).replace("[", " ").replace("]"," ") ;
     }
+
+ 
     
+   
     public void addTematica(String tematica){
         this.nombreTematica.add(tematica);
     }

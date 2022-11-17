@@ -5,7 +5,10 @@
  */
 package database4object.Controllers;
 
+import database4object.Recursos.Translations.Translations_ES;
 import database4object.Services.TematicaServices;
+import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,10 +25,9 @@ public class NuevaTematicaController extends javax.swing.JFrame {
         tematicaServices = new TematicaServices();
         initComponents();
         super.setResizable(false);
-        jLabeErrorNombre.setVisible(false);
         jTextFieldFechaAlta.setEditable(false);
         jTextFieldFechaModificacion.setEditable(false);
-        jLabelCampoObligatorio.setVisible(false);
+        jLabelError.setVisible(false);
     }
 
     /**
@@ -39,14 +41,13 @@ public class NuevaTematicaController extends javax.swing.JFrame {
 
         jLabeErrorNombre1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelCabecera = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jTextFieldFechaAlta = new javax.swing.JTextField();
         jTextFieldFechaModificacion = new javax.swing.JTextField();
         jButtonVolver = new javax.swing.JButton();
         jButtonCrearTematica = new javax.swing.JButton();
-        jLabeErrorNombre = new javax.swing.JLabel();
-        jLabelCampoObligatorio = new javax.swing.JLabel();
+        jLabelError = new javax.swing.JLabel();
 
         jLabeErrorNombre1.setForeground(new java.awt.Color(204, 0, 0));
         jLabeErrorNombre1.setText("Tematica ya registrada");
@@ -55,8 +56,8 @@ public class NuevaTematicaController extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Biblioteca | Nuevo temática");
+        jLabelCabecera.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCabecera.setText("Biblioteca | Nuevo temática");
 
         jTextFieldNombre.setBackground(new java.awt.Color(255, 255, 255));
         jTextFieldNombre.setText("Nombre");
@@ -101,11 +102,7 @@ public class NuevaTematicaController extends javax.swing.JFrame {
             }
         });
 
-        jLabeErrorNombre.setForeground(new java.awt.Color(204, 0, 0));
-        jLabeErrorNombre.setText("Tematica ya registrada");
-
-        jLabelCampoObligatorio.setForeground(new java.awt.Color(204, 0, 0));
-        jLabelCampoObligatorio.setText("Campo obligatorio");
+        jLabelError.setForeground(new java.awt.Color(204, 0, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,14 +113,12 @@ public class NuevaTematicaController extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
+                            .addComponent(jLabelCabecera)
                             .addComponent(jTextFieldNombre)
                             .addComponent(jTextFieldFechaAlta)
                             .addComponent(jTextFieldFechaModificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabeErrorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                            .addComponent(jLabelCampoObligatorio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))
+                        .addComponent(jLabelError, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonCrearTematica)
@@ -135,17 +130,16 @@ public class NuevaTematicaController extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabelCabecera)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabeErrorNombre)
-                    .addComponent(jLabelCampoObligatorio))
+                    .addComponent(jLabelError))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldFechaModificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonVolver)
                     .addComponent(jButtonCrearTematica))
@@ -187,26 +181,44 @@ public class NuevaTematicaController extends javax.swing.JFrame {
     }
     private void jButtonCrearTematicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearTematicaActionPerformed
         // TODO add your handling code here:
-        String nombre = almacenarNombre();
-
-        if (comprobarDatos(nombre) == true) {
-            if (existeTematica(nombre)) {
-                jLabeErrorNombre.setVisible(true);
-            } else {
-                tematicaServices.crearTematica(nombre);
-                super.dispose();
-                MenuPrincipal menu = new MenuPrincipal();
-                menu.setVisible(true);
+        String nombre = almacenarNombre().toLowerCase();
+        String fechaCreacion = jTextFieldFechaAlta.getText();
+        
+        if ( datosBuenosParaCrear(nombre) == true ) {
+            
+            if(tematicaServices.existeTematica(nombre) == false){
+            tematicaServices.crearTematica(nombre, fechaCreacion);
+                jLabelError.setForeground(Color.BLACK);
+                jLabelError.setText(Translations_ES.OPERACION_REALIZADA_CON_EXITO);
+                jLabelError.setVisible(true);
+          }else{
+             jLabelError.setText(Translations_ES.TEMATICA_YA_REGISTRADA);
+            jLabelError.setVisible(true);
             }
-        } else {
-            jLabelCampoObligatorio.setVisible(true);
+        }else {
+            jLabelError.setText(Translations_ES.CAMPO_OBLIGATORIO);
+            jLabelError.setVisible(true);
         }
-
-
     }//GEN-LAST:event_jButtonCrearTematicaActionPerformed
-    public boolean comprobarDatos(String nombre) {
+    
+    public boolean nombreNoEsLineaPorDefecto(String nombre){
+        
+        return nombre.equalsIgnoreCase(Translations_ES.NOMBRE);
+    }
+    public boolean nombreLineaEstaVacio(String nombre){
+        System.out.println(nombre.length());
+        return nombre.length()<1;
+    }
+    
+    /**
+     * 
+     * @param nombre
+     * @return respuesta boolean , en caso de que los datos esten vacios o contengan los caracteres por defecto
+     * devuelve falso, para impedir que se agrege esa tematica
+     */
+    public boolean datosBuenosParaCrear(String nombre) {
         boolean respuesta = true;
-        if (nombre.isEmpty() || nombre.equals("Nombre")) {
+        if(nombreLineaEstaVacio(nombre) || nombreNoEsLineaPorDefecto(nombre)){
             respuesta = false;
         }
         return respuesta;
@@ -217,6 +229,7 @@ public class NuevaTematicaController extends javax.swing.JFrame {
     }
     private void jTextFieldNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreMouseClicked
         // TODO add your handling code here:
+        jLabelError.setVisible(false);
         jTextFieldNombre.setText("");
         jTextFieldFechaAlta.setText(tematicaServices.obtenerFecha());
     }//GEN-LAST:event_jTextFieldNombreMouseClicked
@@ -263,10 +276,9 @@ public class NuevaTematicaController extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCrearTematica;
     private javax.swing.JButton jButtonVolver;
-    private javax.swing.JLabel jLabeErrorNombre;
     private javax.swing.JLabel jLabeErrorNombre1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelCampoObligatorio;
+    private javax.swing.JLabel jLabelCabecera;
+    private javax.swing.JLabel jLabelError;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldFechaAlta;
     private javax.swing.JTextField jTextFieldFechaModificacion;

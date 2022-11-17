@@ -8,7 +8,10 @@ package database4object.Repository;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.collections.ActivatableArrayList;
 import database4object.Classes.Tematica;
+import database4object.Recursos.Translations.Translations_ES;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +35,7 @@ public class TematicaRepository {
         ObjectSet<Tematica> tematicasEncontradas = dataBase.queryByExample(tematica);
 
         if (tematicasEncontradas.isEmpty()) {
-            linea = "No existen tematicas encontradas";
+            linea = Translations_ES.NO_EXISTEN_TEMATICAS_ENCONTRADAS;
         } else {
             while (tematicasEncontradas.hasNext()) {
                 Tematica tematicaEncontrada = (Tematica) tematicasEncontradas.next();
@@ -64,8 +67,7 @@ public class TematicaRepository {
         ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), BDTematica);
         Tematica tematica = new Tematica(nombreAntiguo);
         ObjectSet<Tematica> tematicaBaseDatos = dataBase.queryByExample(tematica);
-        System.out.println(tematicaBaseDatos.size());
-        if (tematicaBaseDatos.isEmpty()) {
+        if (!tematicaBaseDatos.isEmpty()) {
             Tematica tematicaEnBD = tematicaBaseDatos.get(0);
             Tematica copiaTematica = new Tematica(tematicaEnBD.getId(), nuevoNombre, tematicaEnBD.getFechaAlta());
 
@@ -74,18 +76,27 @@ public class TematicaRepository {
         }
         dataBase.close();
     }
-
-    public boolean exixteTematica(String nombre) {
-        boolean existe = false;
-        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), BDTematica);
-        Tematica tematica = new Tematica(nombre);
-        ObjectSet<Tematica> tematicasEncontradas = dataBase.queryByExample(tematica);
-
-        if (!tematicasEncontradas.isEmpty()) {
-            existe = true;
+    /**
+     * Obtengo un arrayList con las tematicas con el nombre que deseo, para llevarlo al services y comprobar si existe o no mi tematica
+     * ya en la base de datos y posteriormente dar permiso de crear una tematica.
+     * @param nombreTematica
+     * @return ArrayList<Tematica> listaTematicaEncontrada, con las tematicas encontradas
+     */
+    public ArrayList<Tematica> tematicaEncontrada(String nombreTematica){
+        ArrayList<Tematica> listaTematicaEncontrada = new ArrayList<>();
+        ObjectSet<Tematica> tematicaEncontradaEnBD;
+        ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),BDTematica);
+        Tematica tematica = new Tematica(nombreTematica);
+        System.out.println(tematica.getNombre());
+        tematicaEncontradaEnBD = dataBase.queryByExample(tematica);
+        
+        while(tematicaEncontradaEnBD.hasNext()){
+             Tematica tematicaEncontrada = (Tematica) tematicaEncontradaEnBD.next();
+             listaTematicaEncontrada.add(tematicaEncontrada);
         }
         dataBase.close();
-        return existe;
+        return listaTematicaEncontrada;
     }
+ 
 
 }

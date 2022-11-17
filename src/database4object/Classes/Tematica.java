@@ -19,9 +19,9 @@ public class Tematica {
     private String fechaAlta;
     private String fechaModificacion;
 
-    
-    public Tematica(){
-    
+    public Tematica(){}
+    public Tematica(String nombreTematica){
+        this.nombre = nombreTematica;
     }
     public Tematica(String id, String nombre,String fechaAlta){
         this.id = id;
@@ -29,8 +29,9 @@ public class Tematica {
         this.fechaAlta = fechaAlta;
         fechaModificacion = obtenerFecha();
     }
-    public Tematica(String nombre) {
+    public Tematica(String nombre,String fechaCreacion) {
         this.nombre = nombre;
+        this.fechaAlta = fechaCreacion;
     }
 
     public String getId() {
@@ -71,7 +72,7 @@ public class Tematica {
     @Override
     public String toString() {
         
-        return (nombre + " - " + fechaAlta + " Fecha ultima modificacion " + fechaModificacion) ;
+        return (nombre + " - " + fechaAlta) ;
     }
 
    

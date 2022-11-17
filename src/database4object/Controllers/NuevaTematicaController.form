@@ -58,16 +58,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelCabecera" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jTextFieldNombre" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextFieldFechaAlta" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextFieldFechaModificacion" alignment="0" pref="253" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabeErrorNombre" pref="148" max="32767" attributes="0"/>
-                              <Component id="jLabelCampoObligatorio" alignment="1" pref="148" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabelError" pref="261" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -84,18 +81,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelCabecera" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextFieldNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabeErrorNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelCampoObligatorio" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelError" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jTextFieldFechaAlta" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jTextFieldFechaModificacion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonVolver" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCrearTematica" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -106,7 +102,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="jLabelCabecera">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
@@ -162,20 +158,11 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCrearTematicaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabeErrorNombre">
+        <Component class="javax.swing.JLabel" name="jLabelError">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tematica ya registrada"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelCampoObligatorio">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Campo obligatorio"/>
           </Properties>
         </Component>
       </SubComponents>

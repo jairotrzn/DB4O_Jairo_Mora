@@ -12,7 +12,6 @@ import java.util.Date;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author jairo
@@ -20,37 +19,56 @@ import java.util.Date;
 public class TematicaServices {
 
     private TematicaRepository tematicaRepository;
-    
+
     public TematicaServices() {
         this.tematicaRepository = new TematicaRepository();
     }
-    
-    public boolean existeTematica(String nombre){
-        return tematicaRepository.exixteTematica(nombre);
+    /**
+     * 
+     * @param nombre
+     * @return respuesta boolean, si existe una tematica con el mismo nombre en la BD devuelve true, asi controlo que pueda o no crearse o modificarse.
+     */
+    public boolean existeTematica(String nombre) {
+
+        boolean respuesta = false;
+        try {
+            ArrayList<Tematica> tematicaEncotradaEnBD = tematicaRepository.tematicaEncontrada(nombre);
+            Tematica tematica = tematicaEncotradaEnBD.get(0);
+            if (nombre.equalsIgnoreCase(tematica.getNombre())) {
+                respuesta = true;
+            }
+        } catch (Exception e) {
+            respuesta = false;
+        }
+
+        return respuesta;
     }
-    public void modificarTematica(String nombreAntiguo,String nombreNuevo){
+
+    public void modificarTematica(String nombreAntiguo, String nombreNuevo) {
         tematicaRepository.modificarTematica(nombreAntiguo, nombreNuevo);
     }
-    public void crearTematica(String nombre){
-        Tematica tematica = new Tematica(nombre);
+
+    public void crearTematica(String nombre, String fechaCreacion) {
+        Tematica tematica = new Tematica(nombre, fechaCreacion);
         tematicaRepository.guardarTematica(tematica);
     }
-    
-    public void leerTematica(){
+
+    public void leerTematica() {
         tematicaRepository.leerTematicas();
     }
-    
-    public String obtenerDatosTematica(){
+
+    public String obtenerDatosTematica() {
         return tematicaRepository.leerTematicas();
     }
-    public String obtenerFecha(){
+
+    public String obtenerFecha() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         return format.format(new Date());
     }
-   
-    public  ArrayList<Tematica> almacenarTematicas(){
-      
+
+    public ArrayList<Tematica> almacenarTematicas() {
+
         return tematicaRepository.obtenerLista();
-    } 
+    }
+
 }
-   

@@ -10,6 +10,9 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import database4object.Classes.Libro;
 import database4object.Classes.Tematica;
+import database4object.Recursos.Translations.Translations_ES;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -34,43 +37,47 @@ public class LibrosRepository {
         if (!librosEncontradas.isEmpty()) {
           
              while (librosEncontradas.hasNext()) {
+                 int cont = 1;
                 Libro librosEncontrados = (Libro) librosEncontradas.next();
-                linea = linea + "\n" + librosEncontradas.toString();
+                linea = linea + "\n" +  cont + ". " + librosEncontradas.toString();
+                cont++;
         } 
         }else{
-              linea = "No existen libros encontrados";
+              linea = Translations_ES.NO_EXISTEN_LIBROS_ENCONTRADOS;
         }
         dataBase.close();
         return linea;
     }
 
-    public void modificarLibro(String nombreAntiguo,String tematica) {
+    public void modificarLibro(String nombreAntiguo,String nuevoNombre,String autor, String fechaPublicacion, List<String> tematicas ,String editorial) {
         ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(), DTBLibros);
         Libro libro = new Libro(nombreAntiguo);
         ObjectSet<Libro> librosEncontrados = dataBase.queryByExample(libro);
         
         if(!librosEncontrados.isEmpty()){
             Libro libroEnBD = librosEncontrados.get(0);
-            Libro copiaLibro = new Libro(libroEnBD.getId(),libroEnBD.getNombre(), libroEnBD.getAutor(), libroEnBD.getFechaPublicacion(), libroEnBD.getEditorial(), tematica);
+            Libro copiaLibro = new Libro(libroEnBD.getId(), nuevoNombre, autor, fechaPublicacion, tematicas, editorial);
+                    
             
             dataBase.store(copiaLibro);
             dataBase.delete(libroEnBD);
         }
-
+        dataBase.close();
     }
     
-    public boolean existeLibroEnBD(String nombreLibro){
-        boolean existe = false;
-        
+    public ArrayList<Libro> libroEnBD(String nombreLibro){
+        ArrayList <Libro> libroEncontrado = new ArrayList<Libro>();
+        ObjectSet <Libro> libroEncontradoEnBD;
         ObjectContainer dataBase = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),DTBLibros);
         Libro libro = new Libro(nombreLibro);
-        ObjectSet<Libro> librosEnconbtrados = dataBase.queryByExample(libro);
+        libroEncontradoEnBD = dataBase.queryByExample(libro);
         
-        if (!librosEnconbtrados.isEmpty()){
-           existe = true;
+        while (libroEncontradoEnBD.hasNext()){
+            Libro libroEnBD = (Libro) libroEncontradoEnBD.next();
+            libroEncontrado.add( libroEnBD);
         }
         dataBase.close();
-         return existe;
+        return libroEncontrado;
     }
 
 }
